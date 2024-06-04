@@ -1,19 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-// const fs = require('fs');
-// const path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = 8000;
 
-// const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const UPLOADS_DIR = path.join(__dirname, 'uploads');
 
 // Ensure uploads directory exists
-// if (!fs.existsSync(UPLOADS_DIR)) {
-//     fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-// }
+if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
 
-// app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 
 app.use(cors({
@@ -22,9 +22,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 require("./config/database")
-// require("./routes/pet.routes")(app)
+require("./routes/bookRoutes")(app)
     
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
